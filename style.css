@@ -1,0 +1,8 @@
+a:link         {color: #3498DB; text-decoration: none;     }
+a:visited      {color: #3498DB; text-decoration: none;     }
+a:hover        {color: #3498DB; text-decoration: underline;}
+a:active       {color: #3498DB; text-decoration: underline;}
+a.text:link    {color: #000000; text-decoration: none;     }
+a.text:visited {color: #000000; text-decoration: none;     }
+a.text:hover   {color: #3498DB; text-decoration: underline;}
+a.text:active  {color: #3498DB; text-decoration: underline;}
