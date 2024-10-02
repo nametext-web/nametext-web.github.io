@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <link rel="icon"       type="image/x-icon" href="https://nametext-web.github.io/favicon.ico">
+        <link rel="stylesheet" type="text/css"     href="https://nametext-web.github.io/style.css"  >
+
+        <script>
+            // 清空结果
+            function clearResults() {
+                document.getElementById("results").innerHTML = "";
+                alert("结果已清空。");
+            }
+
+            // 生成
+            function generate() {
+                // 预设变量
+                const minNum = parseInt(document.getElementById("min").value);
+                const maxNum = parseInt(document.getElementById("max").value);
+                const quantity = parseInt(document.getElementById("quan").value);
+                const results = document.getElementById("results");
+
+                // 防止用户的奇葩行为
+                if (isNaN(minNum) || isNaN(maxNum) || isNaN(quantity)) {
+                    alert("请输入有效的数字！");
+                    return;
+                }
+                if (minNum >= maxNum) {
+                    alert("最小值必须小于最大值！");
+                    return;
+                }
+                if (quantity <= 0) {
+                    alert("数量必须大于0！");
+                    return;
+                }
+
+                // 防止误操作卡死
+                if (quantity > 100000) {
+                    const userConfirmation = confirm("数量过大，如果继续生成，可能导致卡死，是否继续？");
+                    if (!userConfirmation) {
+                        return;
+                    }
+                }
+
+                // 核心代码
+                const randomNumbers = [];
+                for (let i = 0; i < quantity; i++) {
+                    const randomNumber = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+                    randomNumbers.push(randomNumber);
+                }
+
+                // 输出到页面
+                results.innerHTML = randomNumbers.join("\n");
+            }
+
+            // 复制结果
+            function copyResults() {
+                const results = document.getElementById("results");
+                results.select();
+                document.execCommand("copy");
+                alert("结果已复制到剪贴板。");
+            }
+        </script>
+
+        <title>NameText-Web > 工具 > 随机数</title>
+    </head>
+    <body>
+        <h1>
+            <a href="https://nametext-web.github.io/" class="text">NameText-Web</a>
+            &nbsp;>&nbsp;
+            <a href="https://nametext-web.github.io/tools/" class="text">工具</a>
+            &nbsp;>&nbsp;
+            <a href="https://nametext-web.github.io/tools/random-numbers/" class="text">随机数</a>
+        </h1>
+
+        <br />
+
+        <label>最小值：</label> <input id="min" /> <br />
+        <label>最大值：</label> <input id="max" /> <br />
+        <label>数量：</label> <input id="quan" /> <br />
+
+        <br />
+
+        <button onclick="clearResults();">清空结果</button>
+        <button onclick="generate();">生成</button>
+        <button onclick="copyResults();">复制结果</button>
+        <br /> <!-- 3个按钮后的换行 -->
+
+        <br />
+
+        <textarea id="results" 
+                  placeholder="点击上方“生成”按钮以生成结果。"
+                  style="width: 300px; height: 150px; resize: both; overflow: auto;"
+        ></textarea>
+    </body>
+</html>
